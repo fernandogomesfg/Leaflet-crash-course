@@ -37,9 +37,14 @@
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 
+<!--GeoJSON-->
+<script src="./data/pontos.js"></script>
+<script src="./data/linhas.js"></script>
+<script src="./data/poligono.js"></script>
+
 <script>
     //mapa inicializado
-    var map = L.map('map').setView([-25.953724, 32.588711], 8);
+    var map = L.map('map').setView([-25.953724, 32.588711], 12);
 
     //camada osm
     var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -88,12 +93,25 @@
     var singleMarker = L.marker([-25.953724, 32.588711], { icon: myIcon, draggable: true })
     var popup = singleMarker.bindPopup('Aqui eh Maputo: ' + singleMarker.getLatLng()).openPopup();
     popup.addTo(map);
-    
-    var secondMarker = L.marker([-25.053724, 32.08711], { icon: myIcon, draggable: true })
+
+    var secondMarker = L.marker([-25.953724, 32.488711], { icon: myIcon, draggable: true })
 
 
     //GeoJSON
     //console.log(singleMarker.toGeoJSON())
+
+    //GeoJSON
+    var pontosData = L.geoJSON(pontosJSON).addTo(map)
+    var linhasData = L.geoJSON(linhasJSON).addTo(map)
+    var poligonosData = L.geoJSON(poligonosJSON, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(`<b>Name: </b>`+feature.properties.name)
+        },
+        style: {
+            fillColor: 'green',
+            color: 'red'
+        }
+    }).addTo(map)
 
     //controle de camadas
     var baseMaps = {
@@ -107,11 +125,16 @@
 
     var overlayMaps = {
         "First Marker": singleMarker,
-        "Second Marker": secondMarker
+        "Second Marker": secondMarker,
+        "Pontos": pontosData,
+        "Linhas": linhasData,
+        "Poligono": poligonosData
     };
 
     map.removeLayer(singleMarker)
 
-    var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: true}).addTo(map);
+    var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: true }).addTo(map);
+
+    
 
 </script>
