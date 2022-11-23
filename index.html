@@ -85,11 +85,33 @@
         iconSize: [40, 40],
     });
 
-    var singleMarker = L.marker([-25.953724, 32.588711], { icon: myIcon, draggable: true})
+    var singleMarker = L.marker([-25.953724, 32.588711], { icon: myIcon, draggable: true })
     var popup = singleMarker.bindPopup('Aqui eh Maputo: ' + singleMarker.getLatLng()).openPopup();
     popup.addTo(map);
+    
+    var secondMarker = L.marker([-25.053724, 32.08711], { icon: myIcon, draggable: true })
+
 
     //GeoJSON
-    console.log(singleMarker.toGeoJSON())
+    //console.log(singleMarker.toGeoJSON())
+
+    //controle de camadas
+    var baseMaps = {
+        "Open Street Map": osm,
+        "Water Color": watercolor,
+        "Dark": dark,
+        "Google Streets": googleStreets,
+        "Google satellite": googleSat
+
+    };
+
+    var overlayMaps = {
+        "First Marker": singleMarker,
+        "Second Marker": secondMarker
+    };
+
+    map.removeLayer(singleMarker)
+
+    var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: true}).addTo(map);
 
 </script>
