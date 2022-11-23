@@ -77,6 +77,19 @@
         maxZoom: 20,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
     });
-    googleSat.addTo(map)
+    // googleSat.addTo(map)
+
+    //Maker
+    var myIcon = L.icon({
+        iconUrl: 'img/red_marker.png',
+        iconSize: [40, 40],
+    });
+
+    var singleMarker = L.marker([-25.953724, 32.588711], { icon: myIcon, draggable: true})
+    var popup = singleMarker.bindPopup('Aqui eh Maputo: ' + singleMarker.getLatLng()).openPopup();
+    popup.addTo(map);
+
+    //GeoJSON
+    console.log(singleMarker.toGeoJSON())
 
 </script>
