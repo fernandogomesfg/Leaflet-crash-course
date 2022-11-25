@@ -84,6 +84,14 @@
     });
     // googleSat.addTo(map)
 
+    var nexrad = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+        layers: 'nexrad-n0r-900913',
+        format: 'image/png',
+        transparent: true,
+        attribution: "Weather data © 2012 IEM Nexrad"
+    });
+
+
     //Maker
     var myIcon = L.icon({
         iconUrl: 'img/red_marker.png',
@@ -104,8 +112,8 @@
     var pontosData = L.geoJSON(pontosJSON).addTo(map)
     var linhasData = L.geoJSON(linhasJSON).addTo(map)
     var poligonosData = L.geoJSON(poligonosJSON, {
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(`<b>Name: </b>`+feature.properties.name)
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(`<b>Name: </b>` + feature.properties.name)
         },
         style: {
             fillColor: 'green',
@@ -128,13 +136,14 @@
         "Second Marker": secondMarker,
         "Pontos": pontosData,
         "Linhas": linhasData,
-        "Poligono": poligonosData
+        "Poligono": poligonosData,
+        "Nexrad": nexrad
     };
 
     map.removeLayer(singleMarker)
 
     var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: true }).addTo(map);
 
-    
+
 
 </script>
