@@ -26,6 +26,13 @@
             bottom: 10px;
             right: 50%;
         }
+
+        .leaflet-popup-content-wrapper{
+            color: #fff;
+            background-color: #000;
+            border: 1px solid red;
+            border-radius: 0%;
+        }
     </style>
 </head>
 
@@ -161,6 +168,9 @@
         document.getElementsByClassName('coordinate')[0].innerHTML = "Latitude: "+e.latlng.lat + " Logitude: "+e.latlng.lng
         console.log("Latitude: "+e.latlng.lat + " Logitude: "+e.latlng.lng)
     })
+
+
+    //personalizacao de estilos
 
 
 </script>
